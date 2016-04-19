@@ -1,4 +1,4 @@
-FROM jenkins:1.642.2
+FROM jenkinsci/jenkins:2.0-rc-1
 
 USER root
 
@@ -11,5 +11,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
   && chmod +x /usr/local/bin/gosu
 
 COPY volume-permissions.sh /usr/local/bin/volume-permissions.sh
+
+ENV JAVA_OPTS="-Xmx8192m"
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/volume-permissions.sh"]
